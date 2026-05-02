@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APRI Fibre Limited – Seamless Connection. Seamless Life.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #5aab35;
+    --green-light: #7bc456;
+    --green-dark: #3d7a22;
+    --red: #c0392b;
+    --teal: #1a9080;
+    --dark: #0f1a0b;
+    --off-white: #f4f8f0;
+    --gray: #6b7c65;
+    --border: rgba(90,171,53,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--off-white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(15,26,11,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.4rem; letter-spacing: -0.02em; color: var(--off-white);
+    text-decoration: none;
+  }
+  .logo-badge {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 800; color: white; letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(244,248,240,0.7); text-decoration: none;
+    font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-light); }
+  .nav-cta {
+    background: var(--green); color: white; border: none;
+    padding: 0.6rem 1.5rem; border-radius: 2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(90,171,53,0.13) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,144,128,0.1) 0%, transparent 60%),
+                var(--dark);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(rgba(90,171,53,1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(90,171,53,1) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; max-width: 750px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(90,171,53,0.12); border: 1px solid rgba(90,171,53,0.35);
+    color: var(--green-light); padding: 0.4rem 1rem; border-radius: 2rem;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); display: block; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero-sub {
+    font-size: 1.15rem; line-height: 1.7; color: rgba(244,248,240,0.65);
+    max-width: 520px; margin-bottom: 2.5rem; font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-primary {
+    background: var(--green); color: white;
+    padding: 0.85rem 2rem; border-radius: 2rem; font-size: 1rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(244,248,240,0.25); color: var(--off-white);
+    padding: 0.85rem 2rem; border-radius: 2rem; font-size: 1rem; font-weight: 400;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    background: transparent;
+  }
+  .btn-outline:hover { border-color: var(--green); background: rgba(90,171,53,0.08); }
+
+  .hero-stats {
+    position: relative; display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { border-left: 2px solid var(--green); padding-left: 1.2rem; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--off-white); }
+  .stat-label { font-size: 0.82rem; color: rgba(244,248,240,0.5); margin-top: 0.1rem; }
+
+  /* FLOATING CIRCLES */
+  .hero-orb {
+    position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+    width: 520px; height: 520px; border-radius: 50%;
+    border: 1px solid rgba(90,171,53,0.15);
+    animation: pulse 6s ease-in-out infinite;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-orb::before {
+    content: ''; position: absolute; inset: 40px; border-radius: 50%;
+    border: 1px solid rgba(90,171,53,0.1);
+  }
+  .hero-orb::after {
+    content: ''; position: absolute; inset: 100px; border-radius: 50%;
+    border: 1px solid rgba(192,57,43,0.15);
+  }
+  .orb-center {
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(90,171,53,0.25), rgba(26,144,128,0.1));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600;
+    text-align: center; line-height: 1.4; color: rgba(244,248,240,0.6);
+    letter-spacing: 0.15em; text-transform: uppercase; padding: 2rem;
+  }
+
+  @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.02); } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.02em; line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .section-intro { font-size: 1.05rem; color: rgba(244,248,240,0.6); line-height: 1.7; max-width: 600px; }
+
+  /* SERVICES */
+  #services { background: rgba(255,255,255,0.02); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .service-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 1.2rem; padding: 2rem;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--green), var(--teal));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { border-color: rgba(90,171,53,0.4); background: rgba(90,171,53,0.05); transform: translateY(-3px); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 0.8rem;
+    background: rgba(90,171,53,0.15); display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.2rem;
+  }
+  .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .service-card p { font-size: 0.92rem; color: rgba(244,248,240,0.6); line-height: 1.6; }
+
+  /* PRICING */
+  #pricing { background: var(--dark); }
+  .pricing-tabs { display: flex; gap: 0.5rem; margin-bottom: 3rem; }
+  .tab-btn {
+    padding: 0.55rem 1.4rem; border-radius: 2rem;
+    border: 1px solid var(--border); background: transparent;
+    color: rgba(244,248,240,0.6); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--green); color: white; border-color: var(--green); }
+  .tab-btn:hover:not(.active) { border-color: var(--green); color: var(--off-white); }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .price-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 1.2rem; padding: 1.8rem;
+    transition: border-color 0.25s, transform 0.2s;
+    position: relative;
+  }
+  .price-card.featured {
+    border-color: var(--green); background: rgba(90,171,53,0.08);
+  }
+  .featured-badge {
+    position: absolute; top: -10px; right: 1.5rem;
+    background: var(--green); color: white; font-size: 0.72rem; font-weight: 600;
+    padding: 0.2rem 0.8rem; border-radius: 2rem; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .price-card:hover { border-color: rgba(90,171,53,0.5); transform: translateY(-2px); }
+  .price-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: rgba(244,248,240,0.8); margin-bottom: 0.3rem; }
+  .price-speed { font-size: 0.82rem; color: var(--green); margin-bottom: 1rem; font-weight: 500; }
+  .price-amount {
+    font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--off-white);
+    line-height: 1;
+  }
+  .price-period { font-size: 0.82rem; color: rgba(244,248,240,0.4); }
+  .price-divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
+  .price-features { list-style: none; }
+  .price-features li {
+    font-size: 0.88rem; color: rgba(244,248,240,0.65); padding: 0.3rem 0;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; }
+  .price-cta {
+    display: block; text-align: center; margin-top: 1.5rem;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--off-white); padding: 0.65rem; border-radius: 0.7rem;
+    font-size: 0.9rem; text-decoration: none; transition: all 0.2s; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .price-cta:hover { background: var(--green); border-color: var(--green); }
+  .price-card.featured .price-cta { background: var(--green); border-color: var(--green); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* AREAS */
+  #areas { background: rgba(255,255,255,0.02); }
+  .areas-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+  .area-group { margin-bottom: 2rem; }
+  .area-group-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--green); letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .area-group-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .area-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .area-tag {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: rgba(244,248,240,0.8); padding: 0.4rem 1rem; border-radius: 2rem;
+    font-size: 0.88rem; transition: all 0.2s;
+  }
+  .area-tag:hover { border-color: var(--green); color: var(--green-light); background: rgba(90,171,53,0.08); }
+
+  .areas-map {
+    background: rgba(90,171,53,0.05); border: 1px solid var(--border);
+    border-radius: 1.2rem; padding: 2.5rem; text-align: center;
+  }
+  .map-placeholder {
+    width: 100%; aspect-ratio: 1; max-width: 320px; margin: 0 auto;
+    border-radius: 50%; border: 2px dashed rgba(90,171,53,0.3);
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle, rgba(90,171,53,0.08), transparent);
+    position: relative;
+  }
+  .map-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--green);
+    position: absolute; animation: blink 2s infinite;
+  }
+  .map-dot:nth-child(1) { top: 30%; left: 40%; }
+  .map-dot:nth-child(2) { top: 45%; left: 55%; animation-delay: 0.5s; }
+  .map-dot:nth-child(3) { top: 55%; left: 35%; animation-delay: 1s; }
+  .map-dot:nth-child(4) { top: 38%; left: 62%; animation-delay: 1.5s; background: var(--teal); }
+  .map-dot:nth-child(5) { top: 60%; left: 60%; animation-delay: 0.8s; background: var(--teal); }
+  @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+  .map-label { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:700; color:rgba(244,248,240,0.2); }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(135deg, rgba(90,171,53,0.1) 0%, rgba(26,144,128,0.08) 100%);
+    border-top: 1px solid var(--border);
+  }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+  .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.8rem; }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 0.7rem;
+    background: rgba(90,171,53,0.15); display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .contact-info-item h4 { font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700; margin-bottom:0.2rem; }
+  .contact-info-item p, .contact-info-item a {
+    font-size: 0.92rem; color: rgba(244,248,240,0.65); line-height: 1.5; text-decoration: none;
+  }
+  .contact-info-item a:hover { color: var(--green-light); }
+
+  .contact-form { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 1.2rem; padding: 2rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.82rem; color: rgba(244,248,240,0.6); margin-bottom: 0.4rem; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 0.6rem; padding: 0.7rem 1rem; color: var(--off-white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: #1a2d14; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    width: 100%; background: var(--green); color: white; border: none;
+    padding: 0.9rem; border-radius: 0.7rem; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .form-submit:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* PROMOTIONS BANNER */
+  .promo-banner {
+    background: linear-gradient(90deg, var(--green-dark), var(--teal));
+    padding: 1.2rem 4rem; display: flex; align-items: center; justify-content: center;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .promo-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; }
+  .promo-item span { background: rgba(255,255,255,0.2); padding: 0.2rem 0.6rem; border-radius: 0.4rem; font-weight: 700; }
+
+  /* FOOTER */
+  footer {
+    background: rgba(0,0,0,0.4); border-top: 1px solid var(--border);
+    padding: 3rem 4rem 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+  .footer-brand { }
+  .footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.3rem; color:var(--off-white); margin-bottom:0.8rem; }
+  .footer-tagline { font-size:0.88rem; color:rgba(244,248,240,0.45); line-height:1.6; max-width:240px; }
+  .footer-col h4 { font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:700; color:rgba(244,248,240,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; }
+  .footer-col a { display:block; color:rgba(244,248,240,0.65); font-size:0.9rem; text-decoration:none; margin-bottom:0.5rem; transition:color 0.2s; }
+  .footer-col a:hover { color:var(--green-light); }
+  .footer-bottom { border-top:1px solid var(--border); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+  .footer-bottom p { font-size:0.82rem; color:rgba(244,248,240,0.3); }
+  .social-links { display:flex; gap:0.8rem; }
+  .social-link {
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    color:rgba(244,248,240,0.5); font-size:0.8rem; transition:all 0.2s;
+  }
+  .social-link:hover { border-color:var(--green); color:var(--green-light); background:rgba(90,171,53,0.1); }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #25d366; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none;
+    font-size: 1.5rem; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #162412; border: 1px solid var(--border); border-radius: 1.5rem;
+    padding: 2.5rem; max-width: 500px; width: 100%; position: relative;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(10px)} to{opacity:1;transform:none} }
+  .modal-close {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    background: none; border: none; color: rgba(244,248,240,0.5);
+    font-size: 1.3rem; cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--off-white); }
+  .modal h3 { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:700; margin-bottom:0.5rem; }
+  .modal p { color:rgba(244,248,240,0.6); font-size:0.95rem; margin-bottom:1.5rem; }
+  .success-msg { display:none; text-align:center; padding:1rem; }
+  .success-msg .check { font-size:3rem; margin-bottom:0.5rem; }
+  .success-msg h4 { font-family:'Syne',sans-serif; font-size:1.2rem; margin-bottom:0.3rem; }
+  .success-msg p { font-size:0.9rem; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    .hero-orb { display: none; }
+    .areas-layout, .contact-layout, .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .promo-banner { padding: 1rem 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-badge">AP<br>RI</div>
+    APRI Fibre
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#areas">Coverage</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Connected</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span></span> Nairobi's Trusted Connectivity Partner</div>
+    <h1>Seamless<br>Connection.<br><em>Seamless Life.</em></h1>
+    <p class="hero-sub">High-speed fibre internet and integrated security solutions for homes and businesses across Nairobi — from Eastlands to Westlands.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">View Packages</a>
+      <a href="#contact" class="btn-outline">Request Installation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">99.5%</div>
+        <div class="stat-label">Network Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1 Gbps</div>
+        <div class="stat-label">Max Speed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Customer Support</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-orb">
+    <div class="orb-center">Seamless<br>Connection<br>Seamless Life</div>
+  </div>
+</section>
+
+<!-- PROMOTIONS -->
+<div class="promo-banner">
+  <div class="promo-item">🎉 New customer: <span>50% OFF</span> first month</div>
+  <div class="promo-item">📅 Annual plan: <span>10% discount</span></div>
+  <div class="promo-item">🤝 Refer a friend: <span>1 month FREE</span></div>
+  <div class="promo-item">📦 Bundle deal: <span>15% OFF</span> internet + security</div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <h2>Connectivity & Security<br>Under One Roof</h2>
+  <p class="section-intro">APRI Fibre delivers high-speed fibre internet alongside comprehensive security solutions — everything you need, from a single trusted provider.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📡</div>
+      <h3>Fibre Internet</h3>
+      <p>State-of-the-art GPON fibre optic network delivering speeds from 10 Mbps to 1 Gbps+. Unlimited data, minimal latency, superior reliability.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔒</div>
+      <h3>CCTV Surveillance</h3>
+      <p>HD camera systems (720p to 4K), night vision, remote viewing via mobile apps, cloud storage, motion detection and professional monitoring.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚪</div>
+      <h3>Automatic Gates</h3>
+      <p>Sliding and swing motorized gate systems with remote control, solar backup, GSM phone-based access, and intercom integration.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👆</div>
+      <h3>Biometric Access</h3>
+      <p>Fingerprint scanners, facial recognition, RFID card systems. Centralized management with audit trails for homes, offices and commercial spaces.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Smart Home Integration</h3>
+      <p>Combine security systems with smart home automation. IoT-enabled devices managed from a single platform for the modern household.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛠️</div>
+      <h3>Maintenance & Support</h3>
+      <p>Annual maintenance contracts, firmware updates, equipment health checks, and rapid on-site response for all installed systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">Transparent Pricing</div>
+  <h2>Pick Your Plan</h2>
+  <p class="section-intro">Flexible packages for every need and budget. All residential plans include unlimited data and a Wi-Fi router. Installation from KES 3,500.</p>
+  <div class="pricing-tabs">
+    <button class="tab-btn active" onclick="switchTab('residential', this)">Residential</button>
+    <button class="tab-btn" onclick="switchTab('business', this)">Business</button>
+    <button class="tab-btn" onclick="switchTab('security', this)">Security</button>
+  </div>
+
+  <div class="tab-content active" id="tab-residential">
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Home Basic</h3>
+        <div class="price-speed">📶 Up to 10 Mbps</div>
+        <div class="price-amount">KES 2,500</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited data</li>
+          <li>Wi-Fi router included</li>
+          <li>Browsing, social media, email</li>
+          <li>Standard support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+      <div class="price-card">
+        <h3>Home Standard</h3>
+        <div class="price-speed">📶 Up to 20 Mbps</div>
+        <div class="price-amount">KES 3,500</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited data</li>
+          <li>Dual-band router</li>
+          <li>HD streaming & video calls</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">Popular</div>
+        <h3>Home Premium</h3>
+        <div class="price-speed">📶 Up to 50 Mbps</div>
+        <div class="price-amount">KES 5,000</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited data</li>
+          <li>High-performance router</li>
+          <li>4K streaming, multiple devices</li>
+          <li>24/7 support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+      <div class="price-card">
+        <h3>Home Ultra</h3>
+        <div class="price-speed">📶 Up to 100 Mbps</div>
+        <div class="price-amount">KES 9,500</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited data</li>
+          <li>Premium router</li>
+          <li>Heavy usage & gaming</li>
+          <li>24/7 priority support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-business">
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Business Essential</h3>
+        <div class="price-speed">📶 Up to 30 Mbps</div>
+        <div class="price-amount">KES 5,000</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Static IP option</li>
+          <li>Business-grade support</li>
+          <li>Service Level Agreement</li>
+          <li>For small offices & startups</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">Recommended</div>
+        <h3>Business Professional</h3>
+        <div class="price-speed">📶 Up to 100 Mbps</div>
+        <div class="price-amount">KES 12,000</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Multiple static IPs</li>
+          <li>Dedicated support line</li>
+          <li>Guaranteed uptime SLA</li>
+          <li>Medium enterprises</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Started</a>
+      </div>
+      <div class="price-card">
+        <h3>Enterprise Custom</h3>
+        <div class="price-speed">📶 100 Mbps – 1 Gbps+</div>
+        <div class="price-amount">From KES 25K</div>
+        <div class="price-period">per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Fully custom infrastructure</li>
+          <li>Dedicated account manager</li>
+          <li>Enterprise SLA</li>
+          <li>Data centres & corporates</li>
+        </ul>
+        <a href="#contact" class="price-cta">Talk to Sales</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-security">
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Bronze</h3>
+        <div class="price-speed">🔒 Starter Security</div>
+        <div class="price-amount">KES 75,000</div>
+        <div class="price-period">one-time</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Automatic gate motor</li>
+          <li>4 CCTV cameras (720p)</li>
+          <li>NVR recorder</li>
+          <li>Remote mobile viewing</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Quote</a>
+      </div>
+      <div class="price-card">
+        <h3>Silver</h3>
+        <div class="price-speed">🔒 Enhanced Security</div>
+        <div class="price-amount">KES 135,000</div>
+        <div class="price-period">one-time</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Gate + 8 CCTV cameras (1080p)</li>
+          <li>1 biometric door access</li>
+          <li>Cloud storage option</li>
+          <li>Motion alerts</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Quote</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">Best Value</div>
+        <h3>Gold</h3>
+        <div class="price-speed">🔒 Comprehensive Security</div>
+        <div class="price-amount">KES 250,000</div>
+        <div class="price-period">one-time</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Gate + 16 cameras (1080p/4K)</li>
+          <li>2 biometric access points</li>
+          <li>Alarm system included</li>
+          <li>Full property coverage</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get Quote</a>
+      </div>
+      <div class="price-card">
+        <h3>Platinum</h3>
+        <div class="price-speed">🔒 Premium Solution</div>
+        <div class="price-amount">Custom</div>
+        <div class="price-period">bespoke pricing</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Full property smart security</li>
+          <li>Professional monitoring</li>
+          <li>Smart home integration</li>
+          <li>Priority SLA support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section id="areas">
+  <div class="section-label">Coverage Areas</div>
+  <h2>Where We Operate</h2>
+  <p class="section-intro">Strategically deployed across Nairobi's key residential and commercial neighbourhoods, with rapid expansion underway.</p>
+  <div class="areas-layout">
+    <div>
+      <div class="area-group">
+        <div class="area-group-title">🟢 Eastlands</div>
+        <div class="area-tags">
+          <span class="area-tag">Umoja</span>
+          <span class="area-tag">Donholm</span>
+          <span class="area-tag">Buruburu</span>
+          <span class="area-tag">Makadara</span>
+          <span class="area-tag">Pipeline</span>
+        </div>
+      </div>
+      <div class="area-group">
+        <div class="area-group-title">🔵 Westlands & Environs</div>
+        <div class="area-tags">
+          <span class="area-tag">Westlands</span>
+          <span class="area-tag">Kilimani</span>
+          <span class="area-tag">Kileleshwa</span>
+          <span class="area-tag">Lavington</span>
+        </div>
+      </div>
+      <div class="area-group">
+        <div class="area-group-title">🟡 Coming Soon</div>
+        <div class="area-tags">
+          <span class="area-tag">Kayole</span>
+          <span class="area-tag">Embakasi</span>
+          <span class="area-tag">Komarock</span>
+          <span class="area-tag">Parklands</span>
+          <span class="area-tag">Ruiru</span>
+          <span class="area-tag">Kitengela</span>
+        </div>
+      </div>
+      <p style="font-size:0.9rem;color:rgba(244,248,240,0.5);margin-top:1rem;">Not sure if we cover your area? <a href="#contact" style="color:var(--green-light);text-decoration:none;">Contact us</a> — we're expanding fast.</p>
+    </div>
+    <div class="areas-map">
+      <div class="map-placeholder">
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <span class="map-label">NAIROBI</span>
+      </div>
+      <p style="margin-top:1.5rem;font-size:0.88rem;color:rgba(244,248,240,0.45);">Coverage expanding across<br>Nairobi and beyond by 2027</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Ready to Connect?</h2>
+  <p class="section-intro">Request installation, get a quote, or just ask us anything. Our team responds within hours.</p>
+  <div class="contact-layout">
+    <div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Phone & WhatsApp</h4>
+          <a href="tel:+254794411041">+254 794 411 041</a><br>
+          <p>Available 24/7 for urgent issues</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:sales@aprifibre.co.ke">sales@aprifibre.co.ke</a><br>
+          <a href="mailto:collins@aprifibre.co.ke">collins@aprifibre.co.ke</a>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <h4>Website</h4>
+          <a href="https://www.aprifibre.com" target="_blank">www.aprifibre.com</a>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Head Office</h4>
+          <p>Nairobi, Kenya</p>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;">
+        <p style="font-size:0.82rem;color:rgba(244,248,240,0.4);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Follow Us</p>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <a href="#" class="social-link" title="Facebook">f</a>
+          <a href="#" class="social-link" title="Twitter">𝕏</a>
+          <a href="#" class="social-link" title="Instagram">📸</a>
+          <a href="#" class="social-link" title="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div id="formSuccess" class="success-msg">
+        <div class="check">✅</div>
+        <h4>Message Sent!</h4>
+        <p>Our team will be in touch within 4 hours during business days. For urgent queries call <strong>+254 794 411 041</strong>.</p>
+      </div>
+      <div id="formBody">
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;margin-bottom:1.5rem;">Request a Callback</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="John Kamau" id="fname">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+254 7XX XXX XXX" id="fphone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="femail">
+        </div>
+        <div class="form-group">
+          <label>Area / Location</label>
+          <input type="text" placeholder="e.g. Donholm, Kilimani..." id="farea">
+        </div>
+        <div class="form-group">
+          <label>Service Interested In</label>
+          <select id="fservice">
+            <option value="">Select a service...</option>
+            <option>Home Internet</option>
+            <option>Business Internet</option>
+            <option>CCTV Installation</option>
+            <option>Automatic Gate</option>
+            <option>Biometric Access</option>
+            <option>Integrated Security Package</option>
+            <option>Internet + Security Bundle</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message (Optional)</label>
+          <textarea placeholder="Tell us more about your needs..." id="fmessage"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send Request →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">APRI Fibre Limited</div>
+      <div class="footer-tagline">Seamless Connection. Seamless Life. Bridging the digital divide across Nairobi, one neighbourhood at a time.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Fibre Internet</a>
+      <a href="#services">CCTV Systems</a>
+      <a href="#services">Automatic Gates</a>
+      <a href="#services">Biometric Access</a>
+    </div>
+    <div class="footer-col">
+      <h4>Packages</h4>
+      <a href="#pricing">Home Plans</a>
+      <a href="#pricing">Business Plans</a>
+      <a href="#pricing">Security Packages</a>
+      <a href="#pricing">Enterprise</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#areas">Coverage Areas</a>
+      <a href="#contact">Contact Us</a>
+      <a href="mailto:sales@aprifibre.co.ke">Sales Enquiry</a>
+      <a href="https://www.aprifibre.com" target="_blank">Website</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 APRI Fibre Limited. All rights reserved. Nairobi, Kenya.</p>
+    <div class="social-links">
+      <a class="social-link" href="#">f</a>
+      <a class="social-link" href="#">𝕏</a>
+      <a class="social-link" href="#">📸</a>
+      <a class="social-link" href="#">in</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/254794411041" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    if (!name || !phone) {
+      alert('Please enter your name and phone number.');
+      return;
+    }
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // Smooth nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '0.8rem 4rem' : '1.2rem 4rem';
+  });
+</script>
+</body>
+</html>
